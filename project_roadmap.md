@@ -50,18 +50,25 @@ com.example.todolist/
     - Definição da Entidade `TaskEntity`.
     - Implementação do `TaskDao` com operações CRUD e `Flow`.
     - Organização dos pacotes `data/local`.
+    - Implementação do `TaskRepositoryImpl`.
+    - Configuração do Hilt (`DatabaseModule`, `TodoApplication`).
 
-2.  **Fase 2: Configuração de Infraestrutura (Próximo Passo ⏳)**
-    - Criar `AppDatabase.kt`.
-    - Configurar Injeção de Dependência com Hilt (`DatabaseModule.kt`).
+2.  **Fase 2: Infraestrutura de UI e Navegação (Concluído ✅)**
+    - Configuração de dependências para XML e Fragments.
+    - Implementação de `MainActivity` com `NavHostFragment`.
+    - Criação do gráfico de navegação (`nav_graph.xml`).
+    - Configuração de **ViewBinding**.
 
-3.  **Fase 3: Lógica de Domínio**
-    - Criar a interface do Repositório (`TaskRepository`).
-    - Implementar o Repositório (`TaskRepositoryImpl`).
+3.  **Fase 3: Implementação da Listagem (Concluído ✅)**
+    - Definição de Estado e Intenções MVI (`TaskListState`, `TaskListIntent`).
+    - Implementação do `TaskListViewModel`.
+    - Criação do `TaskListFragment` e `TaskAdapter`.
+    - Integração com o Repositório reativo.
 
-4.  **Fase 4: Interface do Usuário (UI)**
-    - Configurar Navigation Component.
-    - Implementar Telas (Listagem e Cadastro) seguindo o padrão MVI.
+4.  **Fase 4: Criação de Tarefas (Próximo Passo ⏳)**
+    - Criar `TaskAddFragment` e layout XML.
+    - Implementar `TaskAddViewModel` e fluxo MVI.
+    - Configurar navegação no `nav_graph.xml`.
 
 ---
 
