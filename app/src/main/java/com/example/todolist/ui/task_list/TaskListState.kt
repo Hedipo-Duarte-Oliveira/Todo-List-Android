@@ -8,5 +8,8 @@ import com.example.todolist.domain.model.TaskModel
 data class TaskListState(
     val isLoading: Boolean = false,
     val tasks: List<TaskModel> = emptyList(),
+    val filteredTasks: List<TaskModel> = emptyList(),
+    val taskToDelete: TaskModel? = null,
+    val selectedFilter: TaskFilter = TaskFilter.ALL,
     val errorMessage: String? = null
 )

@@ -38,6 +38,7 @@ com.example.todolist/
     │   ├── TaskListScreen.kt
     │   ├── TaskListViewModel.kt
     │   └── TaskListState.kt
+    ├── task_add/           # Adição de tarefas (Compose)
     └── theme/              # Tema do Compose (Material 3)
 ```
 
@@ -55,13 +56,15 @@ com.example.todolist/
     - Implementação de `MainActivity` com `setContent`.
     - Criação do `ToDoListTheme`.
 
-3.  **Fase 3: Implementação da Listagem em Compose (Concluído ✅)**
-    - Implementação de `TaskListScreen` (MVI).
-    - Integração com `TaskListViewModel` e fluxo reativo do Room.
+3.  **Fase 3: Implementação da Listagem e Adição (Concluído ✅)**
+    - Implementação de `TaskListScreen` e `TaskAddScreen`.
+    - Integração com `TaskListViewModel` e `TaskAddViewModel`.
+    - Navegação via Compose Navigation.
 
-4.  **Fase 4: Criação de Tarefas em Compose (Próximo Passo ⏳)**
-    - Criar `TaskAddScreen`.
-    - Implementar navegação via Compose Navigation.
+4.  **Fase 4: Refinamentos e UX (Próximo Passo ⏳)**
+    - Adicionar Diálogo de Confirmação para exclusão.
+    - Implementar Filtros (Todas, Pendentes, Concluídas).
+    - Melhorar o Estado Vazio (Empty State).
 
 ---
 
@@ -69,13 +72,6 @@ com.example.todolist/
 
 ### TaskEntity (`data/local/TaskEntity.kt`)
 Representa a tabela `tasks` no SQLite via Room.
-- `id`: Chave primária autogerada.
-- `title`: Título da tarefa.
-- `description`: Detalhes.
-- `isCompleted`: Status de conclusão.
-- `createdAt`: Timestamp para ordenação.
 
 ### TaskDao (`data/local/TaskDao.kt`)
 Contrato de acesso aos dados com Room.
-- Observação reativa via `Flow` para atualizações em tempo real.
-- Suporte a operações assíncronas (`suspend`).

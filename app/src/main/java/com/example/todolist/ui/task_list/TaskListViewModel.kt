@@ -36,6 +36,9 @@ class TaskListViewModel @Inject constructor(
             is TaskListIntent.LoadTasks -> fetchTasks()
             is TaskListIntent.ToggleTaskStatus -> updateTaskStatus(intent.taskId, intent.isCompleted)
             is TaskListIntent.DeleteTask -> removeTask(intent.task)
+            is TaskListIntent.ShowDeleteConfirmation -> _state.update { it.copy(taskToDelete = intent.task) }
+            is TaskListIntent.HideDeleteConfirmation -> _state.update { it.copy(taskToDelete = null) }
+            is TaskListIntent.FilterTasks -> updateFilter(intent.filter)
         }
     }
 
@@ -45,8 +48,32 @@ class TaskListViewModel @Inject constructor(
                 .onStart { _state.update { it.copy(isLoading = true) } }
                 .catch { error -> _state.update { it.copy(isLoading = false, errorMessage = error.message) } }
                 .collect { tasks ->
-                    _state.update { it.copy(isLoading = false, tasks = tasks, errorMessage = null) }
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            tasks = tasks,
+                            filteredTasks = applyFilter(tasks, it.selectedFilter),
+                            errorMessage = null
+                        )
+                    }
                 }
+        }
+    }
+
+    private fun updateFilter(filter: TaskFilter) {
+        _state.update {
+            it.copy(
+                selectedFilter = filter,
+                filteredTasks = applyFilter(it.tasks, filter)
+            )
+        }
+    }
+
+    private fun applyFilter(tasks: List<com.example.todolist.domain.model.TaskModel>, filter: TaskFilter): List<com.example.todolist.domain.model.TaskModel> {
+        return when (filter) {
+            TaskFilter.ALL -> tasks
+            TaskFilter.PENDING -> tasks.filter { !it.isCompleted }
+            TaskFilter.COMPLETED -> tasks.filter { it.isCompleted }
         }
     }
 
@@ -59,6 +86,7 @@ class TaskListViewModel @Inject constructor(
     private fun removeTask(task: com.example.todolist.domain.model.TaskModel) {
         viewModelScope.launch {
             repository.deleteTask(task)
+            _state.update { it.copy(taskToDelete = null) }
         }
     }
 }
