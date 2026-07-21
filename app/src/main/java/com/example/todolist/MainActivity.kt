@@ -1,22 +1,30 @@
 package com.example.todolist
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.example.todolist.databinding.ActivityMainBinding
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
+import com.example.todolist.ui.theme.ToDoListTheme
+import com.example.todolist.ui.task_list.TaskListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * Atividade principal que hospeda o NavHostFragment para a navegação entre telas.
- */
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
-
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        enableEdgeToEdge()
+        setContent {
+            ToDoListTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    TaskListScreen(
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
+            }
+        }
     }
 }
