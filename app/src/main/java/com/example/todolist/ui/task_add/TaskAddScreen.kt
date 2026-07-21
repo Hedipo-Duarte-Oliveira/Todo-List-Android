@@ -27,10 +27,18 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskAddScreen(
+    taskId: Int? = null,
     onNavigateBack: () -> Unit,
     viewModel: TaskAddViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+
+    // Carrega a tarefa se um ID for fornecido (modo edição)
+    LaunchedEffect(taskId) {
+        if (taskId != null) {
+            viewModel.handleIntent(TaskAddIntent.LoadTask(taskId))
+        }
+    }
 
     // Observa se a tarefa foi salva para navegar de volta
     if (state.isSaved) {
@@ -42,7 +50,7 @@ fun TaskAddScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Nova Tarefa") },
+                title = { Text(if (state.taskId == null) "Nova Tarefa" else "Editar Tarefa") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Voltar")

@@ -22,6 +22,10 @@ class TaskRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getTaskById(id: Int): TaskModel? {
+        return taskDao.getTaskById(id)?.toDomain()
+    }
+
     override suspend fun saveTask(task: TaskModel) {
         taskDao.saveTask(task.toEntity())
     }

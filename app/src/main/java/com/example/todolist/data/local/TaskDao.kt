@@ -22,6 +22,12 @@ interface TaskDao {
     fun getAllTasks(): Flow<List<TaskEntity>>
 
     /**
+     * Busca uma tarefa específica pelo seu ID único.
+     */
+    @Query("SELECT * FROM tasks WHERE id = :id")
+    suspend fun getTaskById(id: Int): TaskEntity?
+
+    /**
      * Insere uma nova tarefa ou substitui uma existente caso o ID seja o mesmo.
      * 'suspend' garante que a operação seja executada fora da Main Thread para não travar o app.
      */

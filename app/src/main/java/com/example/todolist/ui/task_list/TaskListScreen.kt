@@ -42,6 +42,7 @@ import com.example.todolist.domain.model.TaskModel
 @Composable
 fun TaskListScreen(
     onNavigateToAddTask: () -> Unit,
+    onNavigateToEditTask: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: TaskListViewModel = hiltViewModel()
 ) {
@@ -74,7 +75,8 @@ fun TaskListScreen(
                         TaskItem(
                             task = task,
                             onToggleStatus = { viewModel.handleIntent(TaskListIntent.ToggleTaskStatus(task.id, it)) },
-                            onDelete = { viewModel.handleIntent(TaskListIntent.ShowDeleteConfirmation(task)) }
+                            onDelete = { viewModel.handleIntent(TaskListIntent.ShowDeleteConfirmation(task)) },
+                            onClick = { onNavigateToEditTask(task.id) }
                         )
                     }
                 }
@@ -135,13 +137,15 @@ fun FilterSection(
 fun TaskItem(
     task: TaskModel,
     onToggleStatus: (Boolean) -> Unit,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier

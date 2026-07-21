@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * ViewModel para a tela de adição de tarefas.
+ * ViewModel para a tela de adição e edição de tarefas.
  */
 @HiltViewModel
 class TaskAddViewModel @Inject constructor(
@@ -24,9 +24,25 @@ class TaskAddViewModel @Inject constructor(
 
     fun handleIntent(intent: TaskAddIntent) {
         when (intent) {
+            is TaskAddIntent.LoadTask -> loadTask(intent.taskId)
             is TaskAddIntent.OnTitleChanged -> _state.update { it.copy(title = intent.title) }
             is TaskAddIntent.OnDescriptionChanged -> _state.update { it.copy(description = intent.description) }
             TaskAddIntent.SaveTask -> saveTask()
+        }
+    }
+
+    private fun loadTask(id: Int) {
+        viewModelScope.launch {
+            _state.update { it.copy(isLoading = true, taskId = id) }
+            repository.getTaskById(id)?.let { task ->
+                _state.update { 
+                    it.copy(
+                        title = task.title,
+                        description = task.description,
+                        isLoading = false
+                    )
+                }
+            } ?: _state.update { it.copy(isLoading = false, errorMessage = "Tarefa não encontrada") }
         }
     }
 
@@ -42,6 +58,7 @@ class TaskAddViewModel @Inject constructor(
             try {
                 repository.saveTask(
                     TaskModel(
+                        id = _state.value.taskId ?: 0,
                         title = title,
                         description = _state.value.description
                     )

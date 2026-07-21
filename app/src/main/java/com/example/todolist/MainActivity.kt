@@ -9,9 +9,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.todolist.ui.task_add.TaskAddScreen
 import com.example.todolist.ui.theme.ToDoListTheme
 import com.example.todolist.ui.task_list.TaskListScreen
@@ -42,11 +44,22 @@ fun TodoNavigation() {
         ) {
             composable("task_list") {
                 TaskListScreen(
-                    onNavigateToAddTask = { navController.navigate("task_add") }
+                    onNavigateToAddTask = { navController.navigate("task_add") },
+                    onNavigateToEditTask = { taskId -> navController.navigate("task_edit/$taskId") }
                 )
             }
             composable("task_add") {
                 TaskAddScreen(
+                    onNavigateBack = { navController.popBackStack() }
+                )
+            }
+            composable(
+                route = "task_edit/{taskId}",
+                arguments = listOf(navArgument("taskId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val taskId = backStackEntry.arguments?.getInt("taskId")
+                TaskAddScreen(
+                    taskId = taskId,
                     onNavigateBack = { navController.popBackStack() }
                 )
             }

@@ -15,6 +15,11 @@ interface TaskRepository {
     fun getTasks(): Flow<List<TaskModel>>
 
     /**
+     * Busca uma tarefa pelo ID.
+     */
+    suspend fun getTaskById(id: Int): TaskModel?
+
+    /**
      * Salva uma nova tarefa ou atualiza uma existente.
      */
     suspend fun saveTask(task: TaskModel)
