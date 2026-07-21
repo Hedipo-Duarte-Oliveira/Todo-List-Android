@@ -27,6 +27,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -37,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.todolist.domain.model.TaskCategory
 import com.example.todolist.domain.model.TaskModel
 
 @Composable
@@ -159,12 +161,23 @@ fun TaskItem(
             )
             Spacer(modifier = Modifier.width(8.dp))
             Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = task.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = if (task.isCompleted) MaterialTheme.colorScheme.outline else MaterialTheme.colorScheme.onSurface
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = task.title,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = if (task.isCompleted) MaterialTheme.colorScheme.outline else MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.weight(1f, fill = false)
+                    )
+                    if (task.category != TaskCategory.DEFAULT) {
+                        Spacer(modifier = Modifier.width(8.dp))
+                        SuggestionChip(
+                            onClick = { },
+                            label = { Text(task.category.displayName, style = MaterialTheme.typography.labelSmall) },
+                            modifier = Modifier.height(24.dp)
+                        )
+                    }
+                }
                 if (task.description.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(

@@ -2,6 +2,7 @@ package com.example.todolist.data.repository
 
 import com.example.todolist.data.local.TaskDao
 import com.example.todolist.data.local.TaskEntity
+import com.example.todolist.domain.model.TaskCategory
 import com.example.todolist.domain.model.TaskModel
 import com.example.todolist.domain.repository.TaskRepository
 import kotlinx.coroutines.flow.Flow
@@ -43,13 +44,15 @@ class TaskRepositoryImpl @Inject constructor(
         id = id,
         title = title,
         description = description,
-        isCompleted = isCompleted
+        isCompleted = isCompleted,
+        category = try { TaskCategory.valueOf(category) } catch (e: Exception) { TaskCategory.DEFAULT }
     )
 
     private fun TaskModel.toEntity() = TaskEntity(
         id = id,
         title = title,
         description = description,
-        isCompleted = isCompleted
+        isCompleted = isCompleted,
+        category = category.name
     )
 }

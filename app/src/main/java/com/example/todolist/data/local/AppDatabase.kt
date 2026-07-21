@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
  * Ponto de acesso principal ao banco de dados SQLite do aplicativo.
  * Gerencia a versão do esquema e fornece acesso aos DAOs.
  */
-@Database(entities = [TaskEntity::class], version = 1, exportSchema = false)
+@Database(entities = [TaskEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     /**

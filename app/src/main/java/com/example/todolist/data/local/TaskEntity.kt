@@ -10,5 +10,6 @@ data class TaskEntity(
     val title: String,
     val description: String,
     val isCompleted: Boolean = false,
+    val category: String = "DEFAULT",
     val createdAt: Long = System.currentTimeMillis()
 )

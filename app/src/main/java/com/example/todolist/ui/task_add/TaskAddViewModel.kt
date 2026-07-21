@@ -27,6 +27,7 @@ class TaskAddViewModel @Inject constructor(
             is TaskAddIntent.LoadTask -> loadTask(intent.taskId)
             is TaskAddIntent.OnTitleChanged -> _state.update { it.copy(title = intent.title) }
             is TaskAddIntent.OnDescriptionChanged -> _state.update { it.copy(description = intent.description) }
+            is TaskAddIntent.OnCategoryChanged -> _state.update { it.copy(category = intent.category) }
             TaskAddIntent.SaveTask -> saveTask()
         }
     }
@@ -39,6 +40,7 @@ class TaskAddViewModel @Inject constructor(
                     it.copy(
                         title = task.title,
                         description = task.description,
+                        category = task.category,
                         isLoading = false
                     )
                 }
@@ -60,7 +62,8 @@ class TaskAddViewModel @Inject constructor(
                     TaskModel(
                         id = _state.value.taskId ?: 0,
                         title = title,
-                        description = _state.value.description
+                        description = _state.value.description,
+                        category = _state.value.category
                     )
                 )
                 _state.update { it.copy(isSaved = true, isLoading = false) }
