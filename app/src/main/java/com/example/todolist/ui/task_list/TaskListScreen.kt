@@ -35,6 +35,7 @@ import com.example.todolist.domain.model.TaskModel
 
 @Composable
 fun TaskListScreen(
+    onNavigateToAddTask: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: TaskListViewModel = hiltViewModel()
 ) {
@@ -66,7 +67,7 @@ fun TaskListScreen(
         }
 
         FloatingActionButton(
-            onClick = { /* TODO: Navegação */ },
+            onClick = onNavigateToAddTask,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(16.dp)
