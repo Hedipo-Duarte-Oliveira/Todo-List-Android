@@ -1,18 +1,11 @@
 *.iml
 .gradle
-/# Memory dumps
-*.hprof
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+/local.properties
+/.idea/
 .DS_Store
 /build
 /app/build
 /captures
 .externalNativeBuild
 .cxx
-# Memory dumps
 *.hprof
