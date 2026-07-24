@@ -61,14 +61,16 @@ com.example.todolist/
     - Integração com `TaskListViewModel` e `TaskAddViewModel`.
     - Navegação via Compose Navigation.
 
-4.  **Fase 4: Refinamentos e UX (Próximo Passo ⏳)**
+4.  **Fase 4: Refinamentos e UX (Concluído ✅)**
     - Adicionar Diálogo de Confirmação para exclusão.
     - Implementar Filtros (Todas, Pendentes, Concluídas).
+    - Implementar a Splash Screen moderna (API 12+).
     - Melhorar o Estado Vazio (Empty State).
 
----
-
-## 5. Documentação Técnica: Data Layer
+5.  **Fase 5: Próximos Passos e Deploy (Próximo Passo ⏳)**
+    - Adicionar Barra de Busca na lista.
+    - Adicionar Prazos (Data/Hora) com seletores visuais.
+    - Gerar o APK/Bundle final para Release.
 
 ### TaskEntity (`data/local/TaskEntity.kt`)
 Representa a tabela `tasks` no SQLite via Room.

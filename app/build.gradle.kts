@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.todolist"
+    namespace = "com.hedipoduarte.todolist"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.example.todolist"
+        applicationId = "com.hedipoduarte.todolist"
         minSdk = 24
         targetSdk = 37
         versionCode = 1
@@ -44,6 +44,7 @@ hilt {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.core.splashscreen)
     
     // Compose
     implementation(platform(libs.androidx.compose.bom))
@@ -65,10 +66,16 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+    testImplementation(libs.androidx.room.testing)
+    androidTestImplementation(libs.androidx.room.testing)
 
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
