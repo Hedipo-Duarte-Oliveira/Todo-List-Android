@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "ToDo List Architecture",
+    "subtitle": "Clean Architecture + MVI Flow",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "ui", "type": "frontend", "label": "UI (Compose)", "sublabel": "Material 3 Screens", "pos": [40, 200] },
+    { "id": "viewmodel", "type": "backend", "label": "ViewModel", "sublabel": "MVI State Management", "pos": [260, 200] },
+    { "id": "domain", "type": "security", "label": "Domain Layer", "sublabel": "Models & Repositories", "pos": [480, 200] },
+    { "id": "data", "type": "database", "label": "Data Layer", "sublabel": "Room & Impl", "pos": [700, 200] },
+    { "id": "sqlite", "type": "cloud", "label": "SQLite", "sublabel": "Local Persistence", "pos": [920, 200] }
+  ],
+  "connections": [
+    { "id": "ui-vm", "from": "ui", "to": "viewmodel", "label": "Intents", "variant": "emphasis" },
+    { "id": "vm-ui", "from": "viewmodel", "to": "ui", "label": "State (Flow)", "variant": "dashed", "fromSide": "bottom", "toSide": "bottom", "route": "auto", "labelDy": 30 },
+    { "id": "vm-dom", "from": "viewmodel", "to": "domain", "label": "Actions" },
+    { "id": "dom-data", "from": "domain", "to": "data", "label": "Contract" },
+    { "id": "data-sqlite", "from": "data", "to": "sqlite", "label": "CRUD" }
+  ]
+}
